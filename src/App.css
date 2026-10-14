@@ -1,0 +1,327 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Đổi màu nền theo thời tiết (Yêu cầu nâng cao) */
+.app-wrapper {
+  min-height: 100vh;
+  padding: 20px;
+  transition: background 0.4s ease;
+  color: #1e293b;
+}
+
+.theme-default {
+  background: linear-gradient(135deg, #e0f2fe 0%, #f1f5f9 100%);
+}
+.theme-clear {
+  background: linear-gradient(135deg, #fef08a 0%, #bae6fd 100%);
+}
+.theme-cloudy {
+  background: linear-gradient(135deg, #cbd5e1 0%, #e2e8f0 100%);
+}
+.theme-rain {
+  background: linear-gradient(135deg, #94a3b8 0%, #cbd5e1 100%);
+}
+.theme-storm {
+  background: linear-gradient(135deg, #475569 0%, #94a3b8 100%);
+}
+
+.app-header {
+  max-width: 1100px;
+  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.app-header h1 {
+  font-size: 1.5rem;
+  color: #0f172a;
+}
+
+.unit-toggle-btn {
+  padding: 8px 16px;
+  border: 1px solid #0284c7;
+  background-color: #0284c7;
+  color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.unit-toggle-btn:hover {
+  background-color: #0369a1;
+}
+
+/*  Giao diện Responsive (nhỏ hơn 768px xếp dọc, từ 768px chia 2 cột) */
+.main-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .main-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .sidebar {
+    width: 300px;
+    flex-shrink: 0;
+  }
+
+  .content-area {
+    flex: 1;
+  }
+}
+
+/* Sidebar & Danh sách thành phố */
+.sidebar {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.city-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.city-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #f8fafc;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.city-item:hover {
+  background: #e0f2fe;
+}
+
+/* Thành phố đang chọn được làm nổi bật */
+.city-item.active {
+  background: #0284c7;
+  color: #ffffff;
+  font-weight: 600;
+  border-color: #0369a1;
+}
+
+.fav-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #94a3b8;
+}
+
+.city-item.active .fav-btn {
+  color: #e2e8f0;
+}
+
+.fav-btn.fav-active {
+  color: #eab308 !important;
+}
+
+/* Khu vực hiển thị nội dung */
+.content-area {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  min-height: 400px;
+}
+
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  text-align: center;
+  gap: 12px;
+  color: #475569;
+  font-size: 1.05rem;
+}
+
+.error-box {
+  color: #dc2626;
+}
+
+.retry-btn {
+  padding: 8px 20px;
+  background: #dc2626;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid #cbd5e1;
+  border-top-color: #0284c7;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Thời tiết hiện tại */
+.current-weather-card {
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+.current-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.current-header h2 {
+  font-size: 1.75rem;
+}
+
+.update-time {
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+.current-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.current-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.weather-icon-large {
+  font-size: 4rem;
+}
+
+.temp-large {
+  font-size: 2.75rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.weather-desc {
+  font-size: 1.1rem;
+  color: #475569;
+  margin-top: 4px;
+}
+
+.current-extra {
+  display: flex;
+  gap: 24px;
+  background: #f8fafc;
+  padding: 14px 20px;
+  border-radius: 10px;
+}
+
+.extra-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.95rem;
+}
+
+/* Dự báo 7 ngày */
+.forecast-section h3 {
+  margin-bottom: 14px;
+  font-size: 1.2rem;
+}
+
+.forecast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+  gap: 12px;
+}
+
+.forecast-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.forecast-day {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.forecast-date {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.forecast-icon {
+  font-size: 2rem;
+  margin: 4px 0;
+}
+
+.forecast-temps {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.temp-max {
+  color: #ea580c;
+}
+
+.temp-min {
+  color: #0284c7;
+}
